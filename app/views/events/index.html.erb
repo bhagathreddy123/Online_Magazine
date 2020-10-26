@@ -1,0 +1,44 @@
+<h1>Event List</h1>
+<table>
+  <tr>
+    <td>Hosted By</td>
+    <td>Host Email</td>
+    <td># of Guests</td>
+    <td>Guest Names</td>
+    <td>Venue Name</td>
+    <td>Venue Address</td>
+    <td>Event Theme</td>
+    <td>Event Start Time</td>
+    <td>Event End Time</td>
+    <td>Description</td>
+  </tr>
+  <tr>
+    <td colspan="10"><%= link_to "New",new_event_url %></td>
+  </tr>
+<%- @events.each do |event| %>
+  <tr>
+    <td>
+      <%- if event.host_name.blank? %>
+        No host was found
+      <%- else %>
+        <%= event.host_name %>
+      <%- end %>
+    </td>
+    <td>
+      <%= event.host_email %>
+    </td>
+    <td><%= event.numgsts %></td>
+    <td>
+      <%- event.guest_names.split(',').compact.each do |g| %>
+        <%- f,l=g.split(' ') %>
+        <%= l %>, <%= f %>
+      <%- end %>
+    </td>
+    <td><%= event.venue %></td>
+    <td><%= event.location %></td>
+    <td class="time"><%= event.starts_at %></td>
+    <td class="time"><%= event.ends_at %></td>
+    <td><%= event.descript %></td>
+  </tr>
+<%- end %>
+</table>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201024044548) do
+ActiveRecord::Schema.define(version: 20201026005749) do
 
   create_table "artices", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -36,6 +36,21 @@ ActiveRecord::Schema.define(version: 20201024044548) do
   end
 
   add_index "comments", ["article_id"], name: "index_comments_on_article_id", using: :btree
+
+  create_table "events", force: :cascade do |t|
+    t.string   "host_name",   limit: 255
+    t.string   "host_email",  limit: 255
+    t.integer  "numgsts",     limit: 4
+    t.text     "guest_names", limit: 65535
+    t.string   "venue",       limit: 255
+    t.string   "location",    limit: 255
+    t.string   "theme",       limit: 255
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.text     "descript",    limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
 
   add_foreign_key "comments", "articles"
 end
