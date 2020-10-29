@@ -20,24 +20,18 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.new
-    if params[:event][:numgsts].blank?
-      params[:event][:numgsts]=0
-    end
-
-    @event.attributes = params[:event]
-
+    @event = Event.new(event_params)
     if @event.save
-      # if end is blank, set to end of day
-      if @event.when_its_over.blank?
-        @event.when_its_over=@event.when.end_of_day
-        @event.save
-      end
-      @event.after_save
-      redirect_to events_url
+       redirect_to events_url
     else
       flash[:notice]="Event was incorrect."
       redirect_to new_event_url
     end
+  end
+
+  private
+
+  def event_params
+    params.require(:event).permit!
   end
 end
